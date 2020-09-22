@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.keycloak.testsuite</groupId>
         <artifactId>integration-arquillian-tests</artifactId>
-        <version>8.0.1</version>
+        <version>11.0.2</version>
         <relativePath/>
     </parent>
 
     <groupId>io.cloudtrust</groupId>
     <artifactId>kc-cloudtrust-testsuite</artifactId>
-    <version>8.0.1</version>
+    <version>11.0.2</version>
     <description>Parent for testing of keycloak modules</description>
     <packaging>pom</packaging>
 
@@ -29,11 +29,14 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <keycloak.version>8.0.1</keycloak.version>
+        <keycloak.version>11.0.2</keycloak.version>
         <jfreechart.version>1.5.0</jfreechart.version>
-        <cloudtrust.version>1.4.0</cloudtrust.version>
-        <spotbugs.version>4.0.0</spotbugs.version>
-        <owasp-check.version>5.3.1</owasp-check.version>
+        <cloudtrust.version>2.0.0</cloudtrust.version>
+        <spotbugs.version>4.1.2</spotbugs.version>
+        <!--owasp-check.version>6.0.1</owasp-check.version-->
+
+        <dependency.keystore>${auth.server.config.dir}/keycloak.jks</dependency.keystore>
+        <dependency.truststore>${auth.server.config.dir}/keycloak.truststore</dependency.truststore>
     </properties>
 
     <dependencies>
@@ -113,13 +116,6 @@
             <artifactId>jfreechart</artifactId>
             <version>${jfreechart.version}</version>
         </dependency>
-        <!--dependency>
-            <groupId>jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.13</version>
-            <scope>test</scope>
-        </dependency-->
-        
 
         <dependency>
             <groupId>org.keycloak.testsuite</groupId>

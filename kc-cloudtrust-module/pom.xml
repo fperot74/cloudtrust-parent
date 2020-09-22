@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.keycloak</groupId>
         <artifactId>keycloak-parent</artifactId>
-        <version>8.0.1</version>
+        <version>11.0.2</version>
         <relativePath/>
     </parent>
 
     <groupId>io.cloudtrust</groupId>
     <artifactId>kc-cloudtrust-module</artifactId>
-    <version>8.0.1</version>
+    <version>11.0.2</version>
     <description>Parent for keycloak modules</description>
     <packaging>pom</packaging>
 
@@ -20,19 +20,19 @@
     </modules>
 
     <properties>
-        <cloudtrust.version>1.4.0</cloudtrust.version>
-        <keycloak.version>8.0.1</keycloak.version>
+        <cloudtrust.version>2.0.0</cloudtrust.version>
+        <keycloak.version>11.0.2</keycloak.version>
         <flatbuffers.version>1.10.0</flatbuffers.version>
-        <apache-collections.version>4.2</apache-collections.version>
+        <apache-collections.version>4.4</apache-collections.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <version.pmd.plugin>3.13.0</version.pmd.plugin>
-        <jacoco.version>0.8.5</jacoco.version>
-        <spotbugs.version>4.0.0</spotbugs.version>
+        <jacoco.version>0.8.6</jacoco.version>
+        <spotbugs.version>4.1.2</spotbugs.version>
         <fb-contrib.version>7.4.7</fb-contrib.version>
         <findsecbugs.version>1.10.1</findsecbugs.version>
-        <owasp-check.version>5.3.1</owasp-check.version>
+        <owasp-check.version>6.0.1</owasp-check.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

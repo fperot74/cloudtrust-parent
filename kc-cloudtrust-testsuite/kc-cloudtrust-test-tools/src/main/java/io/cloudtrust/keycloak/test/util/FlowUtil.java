@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class FlowUtil {
     private RealmModel realm;
@@ -116,11 +117,7 @@ public class FlowUtil {
 
     public FlowUtil clear() {
         // Get executions from current flow
-        List<AuthenticationExecutionModel> executions = realm.getAuthenticationExecutions(currentFlow.getId());
-        // Remove all executions
-        for (AuthenticationExecutionModel authExecution : executions) {
-            realm.removeAuthenticatorExecution(authExecution);
-        }
+        realm.getAuthenticationExecutionsStream(currentFlow.getId()).forEach(realm::removeAuthenticatorExecution);
 
         return this;
     }
@@ -236,26 +233,25 @@ public class FlowUtil {
 
     private List<AuthenticationExecutionModel> getExecutions() {
         if (executions == null) {
-            List<AuthenticationExecutionModel> execs = realm.getAuthenticationExecutions(currentFlow.getId());
-            if (execs == null) {
+            executions = realm.getAuthenticationExecutionsStream(currentFlow.getId()).collect(Collectors.toList());
+            if (executions == null) {
                 throw new FlowUtilException("Can't get executions of unknown flow " + currentFlow.getId());
             }
-            executions = new ArrayList<>(execs);
         }
         return executions;
     }
 
     public FlowUtil removeExecution(int index) {
-        List<AuthenticationExecutionModel> executions = getExecutions();
-        realm.removeAuthenticatorExecution(executions.remove(index));
+        List<AuthenticationExecutionModel> authExecutions = getExecutions();
+        realm.removeAuthenticatorExecution(authExecutions.remove(index));
 
         return this;
     }
 
     public FlowUtil updateExecution(int index, Consumer<AuthenticationExecutionModel> updater) {
-        List<AuthenticationExecutionModel> executions = getExecutions();
-        if (executions != null && updater != null) {
-            AuthenticationExecutionModel execution = executions.get(index);
+        List<AuthenticationExecutionModel> authExecutions = getExecutions();
+        if (updater != null) {
+            AuthenticationExecutionModel execution = authExecutions.get(index);
             updater.accept(execution);
             realm.updateAuthenticatorExecution(execution);
         }

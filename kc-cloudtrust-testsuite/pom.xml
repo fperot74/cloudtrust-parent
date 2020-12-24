@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.keycloak.testsuite</groupId>
         <artifactId>integration-arquillian-tests</artifactId>
-        <version>8.0.1</version>
+        <version>14.0.0</version>
         <relativePath/>
     </parent>
 
     <groupId>io.cloudtrust</groupId>
     <artifactId>kc-cloudtrust-testsuite</artifactId>
-    <version>8.0.1</version>
+    <version>14.0.0</version>
     <description>Parent for testing of keycloak modules</description>
     <packaging>pom</packaging>
 
@@ -29,11 +29,12 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <keycloak.version>8.0.1</keycloak.version>
-        <jfreechart.version>1.5.0</jfreechart.version>
-        <cloudtrust.version>1.4.0</cloudtrust.version>
-        <spotbugs.version>4.0.0</spotbugs.version>
-        <owasp-check.version>5.3.1</owasp-check.version>
+        <keycloak.version>14.0.0</keycloak.version>
+        <jfreechart.version>1.5.1</jfreechart.version>
+        <systemrules.version>1.19.0</systemrules.version>
+        <cloudtrust.version>2.0.0</cloudtrust.version>
+        <spotbugs.version>4.2.3</spotbugs.version>
+        <owasp-check.version>6.0.3</owasp-check.version>
     </properties>
 
     <dependencies>
@@ -113,13 +114,6 @@
             <artifactId>jfreechart</artifactId>
             <version>${jfreechart.version}</version>
         </dependency>
-        <!--dependency>
-            <groupId>jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.0.13</version>
-            <scope>test</scope>
-        </dependency-->
-        
 
         <dependency>
             <groupId>org.keycloak.testsuite</groupId>
@@ -191,17 +185,14 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
-            <version>${keycloak.version}</version>
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-client-registration-api</artifactId>
-            <version>${keycloak.version}</version>
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-authz-client</artifactId>
-            <version>${keycloak.version}</version>
         </dependency>
 
         <!--UNDERTOW-->
@@ -210,34 +201,28 @@
             <groupId>org.keycloak.testsuite</groupId>
             <artifactId>integration-arquillian-servers-auth-server-undertow</artifactId>
             <version>${keycloak.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>undertow-embedded</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-undertow</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-multipart-provider</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jackson2-provider</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -270,13 +255,13 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
+            <version>${postgresql.driver.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>${mariadb.version}</version>
+            <version>${mariadb.driver.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -289,7 +274,6 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-client-cli-dist</artifactId>
-            <version>${keycloak.version}</version>
             <type>zip</type>
             <scope>test</scope>
         </dependency>
@@ -300,6 +284,17 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- env variables for unit tests -->
+            <dependency>
+                <groupId>com.github.stefanbirkner</groupId>
+                <artifactId>system-rules</artifactId>
+                <version>${systemrules.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -384,6 +379,50 @@
                     <configuration>
                         <skipIfEmpty>true</skipIfEmpty>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>copy-common-dependencies</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <skip>false</skip>
+                                <outputDirectory>${project.build.directory}/dependency</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/test/resources</directory>
+                                        <includes>
+                                            <include>arquillian.xml</include>
+                                            <include>wildfly-config.xml</include>
+                                            <include>log4j.properties</include>
+                                            <include>keycloak-add-user.json</include>
+                                        </includes>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>copy-processed-truststore-to-app-server</id>
+                            <phase>process-test-resources</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${app.server.keystore.dir}</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${dependency.keystore.root}</directory>
+                                    </resource>
+                                </resources>
+                                <overwrite>true</overwrite>
+                                <skip>${app.server.skip.unpack}</skip>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

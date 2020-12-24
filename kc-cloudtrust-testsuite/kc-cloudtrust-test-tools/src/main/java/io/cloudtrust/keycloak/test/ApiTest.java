@@ -16,7 +16,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
@@ -27,6 +26,7 @@ import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.services.resource.RealmResourceProviderFactory;
 import org.keycloak.test.FluentTestsHelper;
+import org.keycloak.testsuite.arquillian.KcArquillian;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RunWith(Arquillian.class)
+@RunWith(KcArquillian.class)
 @RunAsClient
 public abstract class ApiTest {
     protected static final String KEYCLOAK_URL = getKeycloakUrl();

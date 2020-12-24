@@ -30,8 +30,8 @@ pipeline {
           sh 'printenv'
           def modules = [
             "cloudtrust-parent": [
-              "cloudtrust-common": [],
               "cloudtrust-test-tools": [],
+              "cloudtrust-common": [],
               "kc-cloudtrust-module": ["kc-cloudtrust-common": []],
               "kc-cloudtrust-testsuite": ["kc-cloudtrust-test-tools": []]
             ]

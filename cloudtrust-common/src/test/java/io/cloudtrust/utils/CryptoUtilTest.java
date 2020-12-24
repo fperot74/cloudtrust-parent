@@ -18,7 +18,7 @@ import java.util.Base64;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.number.OrderingComparison.lessThan;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CryptoUtilTest {
 

@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cloudtrust</groupId>
         <artifactId>kc-cloudtrust-module</artifactId>
-        <version>26.1.2-SNAPSHOT</version>
+        <version>26.1.2</version>
     </parent>
 
     <artifactId>kc-cloudtrust-testsuite</artifactId>
@@ -136,22 +136,22 @@
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>cloudtrust-common</artifactId>
-                <version>26.1.2-SNAPSHOT</version>
+                <version>26.1.2</version>
             </dependency>
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>cloudtrust-test-tools</artifactId>
-                <version>26.1.2-SNAPSHOT</version>
+                <version>26.1.2</version>
             </dependency>
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>kc-cloudtrust-db-access</artifactId>
-                <version>26.1.2-SNAPSHOT</version>
+                <version>26.1.2</version>
             </dependency>
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>kc-cloudtrust-test-tools</artifactId>
-                <version>26.1.2-SNAPSHOT</version>
+                <version>26.1.2</version>
             </dependency>
             <!-- env variables for unit tests -->
             <dependency>

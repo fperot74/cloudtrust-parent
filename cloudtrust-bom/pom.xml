@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.cloudtrust</groupId>
         <artifactId>cloudtrust-parent</artifactId>
-        <version>26.1.2</version>
+        <version>26.1.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>cloudtrust-bom</artifactId>
@@ -53,25 +53,25 @@
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>cloudtrust-common</artifactId>
-                <version>26.1.2</version>
+                <version>26.1.3-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>kc-cloudtrust-common</artifactId>
-                <version>26.1.2</version>
+                <version>26.1.3-SNAPSHOT</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>cloudtrust-test-tools</artifactId>
-                <version>26.1.2</version>
+                <version>26.1.3-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>io.cloudtrust</groupId>
                 <artifactId>kc-cloudtrust-test-tools</artifactId>
-                <version>26.1.2</version>
+                <version>26.1.3-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
